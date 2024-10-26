@@ -1,0 +1,30 @@
+# Step 1: Initial Estimate of Development Effort (Ei) 
+# Get user input for KDLOC (Kilo Lines of Code) 
+KDLOC = float(input("Enter the estimated Kilo Lines of Code (KDLOC): ")) 
+# Constants for the COCOMO Basic Model (Organic) 
+a = 2.4 
+b = 1.05 
+# Calculate the initial effort (Ei) 
+Ei = a * (KDLOC ** b) 
+# Step 2: Get user input for cost drivers and calculate multiplying factors 
+cost_drivers = [] 
+print("\nEnter the values for the following cost drivers:") 
+cost_driver_names = [ 
+ "Required Software Reliability", "Database Size", "Product Complexity", 
+ "Developers' Capability", "Use of Software Tools", "Team Cohesion", 
+ "Experience with similar projects", "Documentation Required", 
+ "Application Experience", "Schedule Constraints" 
+] 
+for name in cost_driver_names: 
+ value = float(input(f"{name}: ")) 
+ cost_drivers.append(value) 
+# Calculate the total multiplying factor 
+total_multiplying_factor = 1 
+for factor in cost_drivers: 
+ total_multiplying_factor *= factor 
+# Step 3: Calculate the total effort estimate (E) 
+E = Ei * total_multiplying_factor 
+# Output the results 
+print(f"\nInitial Effort Estimate (Ei): {Ei:.2f} person-months") 
+print(f"Total Multiplying Factor: {total_multiplying_factor:.3f}") 
+print(f"Final Effort Estimate (E): {E:.2f} person-months")
