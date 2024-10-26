@@ -1,0 +1,72 @@
+# Step 1: Calculate the Complexity Adjustment Factor (CAF)
+# Define the sum of scale values for the 14 factors (F)
+F = int(input("Enter the sum of scale values for the 14 complexity adjustment factors (0 to 5 scale): "))
+
+# Calculate the CAF
+CAF = 0.65 + (0.01 * F)
+print(f"Complexity Adjustment Factor (CAF): {CAF}")
+
+# Step 2: Calculate Unadjusted Function Points (UFP)
+
+# Define weights for function types based on complexity
+weights = {
+    "EI": {"simple": 4, "average": 5, "complex": 7},
+    "EO": {"simple": 4, "average": 5, "complex": 7},
+    "EQ": {"simple": 4, "average": 5, "complex": 6},
+    "ILF": {"simple": 7, "average": 10, "complex": 15},
+    "EIF": {"simple": 5, "average": 7, "complex": 10}
+}
+
+# Input counts for each function type
+function_counts = {
+    "EI": {
+        "simple": int(input("Enter the count for simple External Inputs (EI): ")),
+        "average": int(input("Enter the count for average External Inputs (EI): ")),
+        "complex": int(input("Enter the count for complex External Inputs (EI): "))
+    },
+    "EO": {
+        "simple": int(input("Enter the count for simple External Outputs (EO): ")),
+        "average": int(input("Enter the count for average External Outputs (EO): ")),
+        "complex": int(input("Enter the count for complex External Outputs (EO): "))
+    },
+    "EQ": {
+        "simple": int(input("Enter the count for simple User Inquiries (EQ): ")),
+        "average": int(input("Enter the count for average User Inquiries (EQ): ")),
+        "complex": int(input("Enter the count for complex User Inquiries (EQ): "))
+    },
+    "ILF": {
+        "simple": int(input("Enter the count for simple Internal Logical Files (ILF): ")),
+        "average": int(input("Enter the count for average Internal Logical Files (ILF): ")),
+        "complex": int(input("Enter the count for complex Internal Logical Files (ILF): "))
+    },
+    "EIF": {
+        "simple": int(input("Enter the count for simple External Interface Files (EIF): ")),
+        "average": int(input("Enter the count for average External Interface Files (EIF): ")),
+        "complex": int(input("Enter the count for complex External Interface Files (EIF): "))
+    }
+}
+
+# Calculate UFP
+UFP = (
+    (function_counts["EI"]["simple"] * weights["EI"]["simple"]) +
+    (function_counts["EI"]["average"] * weights["EI"]["average"]) +
+    (function_counts["EI"]["complex"] * weights["EI"]["complex"]) +
+    (function_counts["EO"]["simple"] * weights["EO"]["simple"]) +
+    (function_counts["EO"]["average"] * weights["EO"]["average"]) +
+    (function_counts["EO"]["complex"] * weights["EO"]["complex"]) +
+    (function_counts["EQ"]["simple"] * weights["EQ"]["simple"]) +
+    (function_counts["EQ"]["average"] * weights["EQ"]["average"]) +
+    (function_counts["EQ"]["complex"] * weights["EQ"]["complex"]) +
+    (function_counts["ILF"]["simple"] * weights["ILF"]["simple"]) +
+    (function_counts["ILF"]["average"] * weights["ILF"]["average"]) +
+    (function_counts["ILF"]["complex"] * weights["ILF"]["complex"]) +
+    (function_counts["EIF"]["simple"] * weights["EIF"]["simple"]) +
+    (function_counts["EIF"]["average"] * weights["EIF"]["average"]) +
+    (function_counts["EIF"]["complex"] * weights["EIF"]["complex"])
+)
+
+print(f"Unadjusted Function Points (UFP): {UFP}")
+
+# Step 3: Calculate Adjusted Function Points (FP)
+FP = UFP * CAF
+print(f"Adjusted Function Points (FP): {FP}")
